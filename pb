@@ -175,8 +175,15 @@ mkdir -p "$LOGIC_MODS_DIR" || print_error "LogicMods 디렉토리 생성 실패"
 print_success "LogicMods 디렉토리 생성: $LOGIC_MODS_DIR"
 
 # UE4SS Mods 디렉토리 생성
+print_info "UE4SS 설치 중..."
 mkdir -p "$MODS_DIR" || print_error "UE4SS Mods 디렉토리 생성 실패"
 print_success "UE4SS Mods 디렉토리 생성: $MODS_DIR"
+
+# UE4SS 기본 Mods 다운로드
+wget -q $GITHUB_REPO/Mods.zip
+unzip -q Mods.zip -d "$MODS_DIR" || print_error "UE4SS 압축 해제 실패"
+rm Mods.zip || print_warning "임시 파일 삭제 실패"
+print_success "UE4SS 설치 완료"
 
 # =============================================================================
 # 심볼릭 링크 생성 (모드 관리 편의)
