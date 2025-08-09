@@ -271,12 +271,12 @@ print_info "서버가 시작 중입니다. 완전히 준비되기까지 3-5분�
 # =============================================================================
 # Portainer 설치
 # =============================================================================
-print_step "Portainer 설치"
-PORTAINER_DIR="$USER_HOME/portainer"
-mkdir -p "$PORTAINER_DIR" || print_error "Portainer 디렉토리 생성 실패"
-wget -q "$GITHUB_REPO/portainer/docker-compose.yml" -O "$PORTAINER_DIR/docker-compose.yml" || print_error "Portainer 설정 다운로드 실패"
-docker-compose -f "$PORTAINER_DIR/docker-compose.yml" up -d || print_error "Portainer 시작 실패"
-print_success "Portainer 설치 완료"
+# print_step "Portainer 설치"
+# PORTAINER_DIR="$USER_HOME/portainer"
+# mkdir -p "$PORTAINER_DIR" || print_error "Portainer 디렉토리 생성 실패"
+# wget -q "$GITHUB_REPO/portainer/docker-compose.yml" -O "$PORTAINER_DIR/docker-compose.yml" || print_error "Portainer 설정 다운로드 실패"
+# docker-compose -f "$PORTAINER_DIR/docker-compose.yml" up -d || print_error "Portainer 시작 실패"
+# print_success "Portainer 설치 완료"
 
 # =============================================================================
 # 설치 완료 메시지
