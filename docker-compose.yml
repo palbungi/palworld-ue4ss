@@ -1,8 +1,9 @@
 services:
-  palworld-dedicated-server:
-    container_name: palworld-dedicated-server
-    image: obnyis/palworld-dedicated-server:latest
+  palworld:
+    container_name: palworld
     restart: unless-stopped
+    stop_grace_period: 30s
+    image: obnyis/palworld-dedicated-server:latest
     logging:
       driver: "local"
       options:
