@@ -140,8 +140,8 @@ print_step "PalWorld 서버 설정 파일 다운로드"
 # docker-compose.yml 다운로드
 wget -q "$GITHUB_REPO/docker-compose.yml" -O "$USER_HOME/docker-compose.yml" || print_error "docker-compose.yml 다운로드 실패"
 
-# config.env 다운로드
-wget -q "$GITHUB_REPO/config.env" -O "$USER_HOME/config.env" || print_error "config.env 다운로드 실패"
+# default.env 다운로드
+wget -q "$GITHUB_REPO/default.env" -O "$USER_HOME/default.env" || print_error "default.env 다운로드 실패"
 
 # 정기 관리 스크립트 다운로드
 wget -q "$GITHUB_REPO/regular_maintenance.sh" -O "$USER_HOME/regular_maintenance.sh" || print_error "정기 관리 스크립트 다운로드 실패"
@@ -168,8 +168,8 @@ print_success "서버 디렉토리 구조 생성 완료"
 # =============================================================================
 print_step "서버 설정 수정"
 PUBLIC_IP=$(curl -s ifconfig.me)
-sed -i "s/^REGION=.*/REGION=$PUBLIC_IP/" "$USER_HOME/config.env" || print_error "REGION 설정 수정 실패"
-sed -i "s/^PUBLIC_IP=.*/PUBLIC_IP=$PUBLIC_IP/" "$USER_HOME/config.env" || print_error "PUBLIC_IP 설정 수정 실패"
+sed -i "s/^REGION=.*/REGION=$PUBLIC_IP/" "$USER_HOME/default.env" || print_error "REGION 설정 수정 실패"
+sed -i "s/^PUBLIC_IP=.*/PUBLIC_IP=$PUBLIC_IP/" "$USER_HOME/default.env" || print_error "PUBLIC_IP 설정 수정 실패"
 
 echo -e "\n${ORANGE}${BOLD}=== 서버 설정 편집기 실행 ===${NC}"
 echo -e "• 현재 공인 IP: ${BLUE}$PUBLIC_IP${NC}"
@@ -180,8 +180,8 @@ echo -e "  - ${CYAN}SERVER_NAME${NC}: 서버 이름"
 echo -e "\n${YELLOW}편집을 마치면 ${ORANGE}Ctrl+O${YELLOW}, ${GREEN}Enter${YELLOW}, ${RED}Ctrl+X${YELLOW} 를 눌러 저장하세요.${NC}"
 sleep 3
 
-# config.env 파일 직접 편집
-nano "$USER_HOME/config.env"
+# default.env 파일 직접 편집
+nano "$USER_HOME/default.env"
 
 # =============================================================================
 # cron 설정
@@ -223,9 +223,9 @@ echo -e "================================================${NC}"
 
 # 서버 접속 정보 추출
 SERVER_IP=$(curl -s ifconfig.me)
-SERVER_PASSWORD=$(grep '^SERVER_PASSWORD=' "$USER_HOME/config.env" | cut -d '=' -f2- | tr -d '"')
-ADMIN_PASSWORD=$(grep '^ADMIN_PASSWORD=' "$USER_HOME/config.env" | cut -d '=' -f2- | tr -d '"')
-SERVER_NAME=$(grep '^SERVER_NAME=' "$USER_HOME/config.env" | cut -d '=' -f2- | tr -d '"')
+SERVER_PASSWORD=$(grep '^SERVER_PASSWORD=' "$USER_HOME/default.env" | cut -d '=' -f2- | tr -d '"')
+ADMIN_PASSWORD=$(grep '^ADMIN_PASSWORD=' "$USER_HOME/default.env" | cut -d '=' -f2- | tr -d '"')
+SERVER_NAME=$(grep '^SERVER_NAME=' "$USER_HOME/default.env" | cut -d '=' -f2- | tr -d '"')
 
 # 게임 서버 접속 정보 출력
 echo -e "\n${GREEN}${BOLD}■ 게임 서버 정보${NC}"
@@ -253,14 +253,14 @@ echo -e " ${BLUE}http://${SERVER_IP}:8888${NC} ${CYAN}5분내로 접속해주세
 # 보안 상태 메시지
 if [ -z "$SERVER_PASSWORD" ]; then
     echo -e "\n${RED}${BOLD}※ 보안 경고: 비밀번호가 설정되지 않아 공개 서버입니다!${NC}"
-    echo -e "   ${YELLOW}config.env 파일에서 SERVER_PASSWORD를 설정해주세요${NC}"
+    echo -e "   ${YELLOW}default.env 파일에서 SERVER_PASSWORD를 설정해주세요${NC}"
 else
     echo -e "\n${GREEN}${BOLD}※ 보안: 비밀번호가 설정된 비공개 서버입니다${NC}"
 fi
 
 if [ -z "$ADMIN_PASSWORD" ]; then
     echo -e "\n${RED}${BOLD}※ 보안 경고: 관리자 비밀번호가 설정되지 않았습니다!${NC}"
-    echo -e "   ${YELLOW}config.env 파일에서 ADMIN_PASSWORD를 설정해주세요${NC}"
+    echo -e "   ${YELLOW}default.env 파일에서 ADMIN_PASSWORD를 설정해주세요${NC}"
 fi
 
 # 종료 메시지
