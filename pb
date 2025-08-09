@@ -24,6 +24,9 @@ SERVER_DIR="$USER_HOME/palworld"
 CONFIG_DIR="$SERVER_DIR/Pal/Saved/Config/LinuxServer"
 SAVE_DIR="$SERVER_DIR/Pal/Saved/SaveGames/0/0123456789ABCDEF0123456789ABCDEF"
 GITHUB_REPO="https://raw.githubusercontent.com/palbungi/palworld-ue4ss/main"
+BINARIES_DIR="$SERVER_DIR/Pal/Binaries/linux"
+MODS_DIR="$BINARIES_DIR/ue4ss/Mods"
+LOGIC_MODS_DIR="$SERVER_DIR/Pal/Content/Paks/LogicMods"
 
 # =============================================================================
 # 진행 상태 출력 함수
