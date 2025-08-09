@@ -170,6 +170,64 @@ print_step "게임 저장 디렉토리 생성"
 mkdir -p "$SAVE_DIR" || print_error "저장 디렉토리 생성 실패"
 print_success "서버 디렉토리 구조 생성 완료"
 
+# LogicMods 디렉토리 생성
+mkdir -p "$LOGIC_MODS_DIR" || print_error "LogicMods 디렉토리 생성 실패"
+print_success "LogicMods 디렉토리 생성: $LOGIC_MODS_DIR"
+
+# UE4SS Mods 디렉토리 생성
+mkdir -p "$MODS_DIR" || print_error "UE4SS Mods 디렉토리 생성 실패"
+print_success "UE4SS Mods 디렉토리 생성: $MODS_DIR"
+
+# =============================================================================
+# 심볼릭 링크 생성 (모드 관리 편의)
+# =============================================================================
+print_step "모드 관리 심볼릭 링크 생성"
+
+# 디렉토리 존재 여부 확인 후 링크 생성
+create_symlink() {
+    local target="$1"
+    local link_name="$2"
+    
+    # 대상 디렉토리가 존재하는지 확인
+    if [ ! -d "$target" ]; then
+        print_warning "대상 디렉토리가 존재하지 않아 링크를 생성하지 않습니다: $target"
+        return 1
+    fi
+    
+    # 기존 링크가 존재하면 제거
+    if [ -L "$link_name" ]; then
+        rm "$link_name" || print_warning "기존 링크 삭제 실패: $link_name"
+    fi
+    
+    # 심볼릭 링크 생성
+    ln -s "$target" "$link_name" || print_warning "링크 생성 실패: $target → $link_name"
+}
+
+# UE4SS 모드 링크 (항상 생성)
+if [ -d "$MODS_DIR" ]; then
+    create_symlink "$MODS_DIR" "$USER_HOME/>>> UE4SS 모드 <<<"
+else
+    print_warning "UE4SS 모드 디렉토리가 존재하지 않아 링크를 생성하지 않습니다: $MODS_DIR"
+fi
+
+# PAK 모드 링크 (항상 생성)
+if [ -d "$LOGIC_MODS_DIR" ]; then
+    create_symlink "$LOGIC_MODS_DIR" "$USER_HOME/>>> PAK 모드 <<<"
+else
+    print_warning "PAK 모드 디렉토리가 존재하지 않아 링크를 생성하지 않습니다: $LOGIC_MODS_DIR"
+fi
+
+# 돌아가기 링크 (대상 디렉토리가 없으면 생성하지 않음)
+if [ -d "$MODS_DIR" ]; then
+    ln -s "$USER_HOME" "$MODS_DIR/>>> 처음으로 돌아가기 <<<" 2>/dev/null || print_warning "돌아가기 링크 생성 실패: UE4SS 모드"
+fi
+
+if [ -d "$LOGIC_MODS_DIR" ]; then
+    ln -s "$USER_HOME" "$LOGIC_MODS_DIR/>>> 처음으로 돌아가기 <<<" 2>/dev/null || print_warning "돌아가기 링크 생성 실패: PAK 모드"
+fi
+
+print_success "모드 관리 링크 생성 완료 (일부 실패 항목 있을 수 있음)"
+
 # =============================================================================
 # 서버 설정 수정
 # =============================================================================
