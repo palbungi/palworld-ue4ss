@@ -308,12 +308,10 @@ if [ -n "$ADMIN_PASSWORD" ]; then
 else
     echo -e "  ${RED}※ 주의: 관리자 비밀번호가 설정되지 않았습니다!${NC}"
 fi
-
 # 중요 정보 출력
-echo -e "\n${ORANGE}${BOLD}■ 중요 정보${NC}"
+#echo -e "\n${ORANGE}${BOLD}■ 중요 정보${NC}"
 echo -e " 서버 완전 시작까지 ${YELLOW}3-5분${NC} 소요 (게임 접속 전 대기 필요)"
-echo -e " ${BLUE}http://${SERVER_IP}:8888${NC} ${CYAN}5분내로 접속해주세요${NC}"
-
+# echo -e " ${BLUE}http://${SERVER_IP}:8888${NC} ${CYAN}5분내로 접속해주세요${NC}"
 
 # 보안 상태 메시지
 if [ -z "$SERVER_PASSWORD" ]; then
