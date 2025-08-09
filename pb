@@ -147,6 +147,10 @@ wget -q "$GITHUB_REPO/default.env" -O "$USER_HOME/default.env" || print_error "d
 wget -q "$GITHUB_REPO/regular_maintenance.sh" -O "$USER_HOME/regular_maintenance.sh" || print_error "정기 관리 스크립트 다운로드 실패"
 chmod +x "$USER_HOME/regular_maintenance.sh" || print_error "스크립트 실행 권한 설정 실패"
 sed -i "s|docker-compose.yml|$USER_HOME/docker-compose.yml|g" "$USER_HOME/regular_maintenance.sh" || print_error "스크립트 경로 수정 실패"
+wget -q "$GITHUB_REPO/start.sh" -O "$USER_HOME/start.sh" || print_error "서버시작 스크립트 다운로드 실패"
+chmod +x "$USER_HOME/start.sh" || print_error "스크립트 실행 권한 설정 실패"
+wget -q "$GITHUB_REPO/stop.sh" -O "$USER_HOME/stop.sh" || print_error "서버시작 스크립트 다운로드 실패"
+chmod +x "$USER_HOME/stop.sh" || print_error "스크립트 실행 권한 설정 실패"
 
 # =============================================================================
 # 서버 설정 디렉토리 생성
