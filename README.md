@@ -68,4 +68,4 @@ services:
 - **접속 불가 시**: 방화벽 규칙이 올바르게 적용되었는지 확인하세요.
 - **서버 크래시**: 메모리 부족일 수 있습니다. VM 머신 유형을 상위 사양으로 업그레이드하세요.
 - **스크립트 오류**: 최신 Ubuntu 버전을 사용 중인지 확인하세요.
-> 문의 사항은 [GitHub 이슈](https://github.com/palbungi/palworld-googlecloud//issues)로 등록해 주세요.
+> 문의 사항은 [GitHub 이슈](https://github.com/palbungi/palworld-ue4ss/issues)로 등록해 주세요.
