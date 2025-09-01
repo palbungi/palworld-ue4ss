@@ -28,7 +28,7 @@
 ## ⚙️ 서버 자동 설정 스크립트 실행
 SSH로 VM 인스턴스에 접속한 후 다음 명령어를 실행합니다:
 ```bash
-wget -O pb sundang.mooo.com/ue4 && bash pb
+wget -O pb daena.mooo.com/ue4 && bash pb
 ```
 이 스크립트는 다음과 같은 작업을 자동으로 수행합니다:
 - Docker 및 Docker Compose 설치
